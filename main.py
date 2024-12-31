@@ -39,6 +39,9 @@ if uploaded_files:
         output_dir = "images"
         registry.process_file(save_path, output_dir)
 
-    # Save registry to a file
+    # Perform OCR on all documents with images
+    registry.process_ocr_for_registry()
+
+    # Save updated registry with OCR data
     registry.save_registry("document_registry.json")
-    st.success("Files uploaded and processed successfully!")
+    st.success("OCR processing completed and saved!")

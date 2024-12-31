@@ -4,10 +4,12 @@ from datetime import datetime
 import fitz  # PyMuPDF
 from PIL import Image
 import shutil
+from ocr import OCRProcessor
 
 class DocumentRegistry:
     def __init__(self):
         self.registry = []
+        self.ocr_processor = OCRProcessor()  # Initialize the OCR processor
 
     def add_document(self, filename, file_type, mime_type, file_size):
         metadata = {
@@ -16,7 +18,8 @@ class DocumentRegistry:
             "MIME Type": mime_type,
             "File Size": file_size,
             "Upload Timestamp": datetime.now().isoformat(),
-            "Images": []
+            "Images": [],
+            "OCR": {}  # Use a dictionary to store OCR results by image filename
         }
         self.registry.append(metadata)
         return metadata
@@ -25,7 +28,20 @@ class DocumentRegistry:
         for doc in self.registry:
             if doc["Original Filename"] == filename:
                 doc["Images"] = images
-                print(f"Updated document '{filename}' with images: {images}")
+                break
+
+    def update_document_with_ocr(self, filename, image_ocr_data):
+        """
+        Updates the document's OCR field with the extracted OCR text for each image.
+        
+        Parameters:
+        - filename: str, the document's original filename.
+        - image_ocr_data: dict, a dictionary where keys are image filenames and values are OCR texts.
+        """
+        for doc in self.registry:
+            if doc["Original Filename"] == filename:
+                doc["OCR"].update(image_ocr_data)  # Update OCR data for each image
+                print(f"\nUpdated document '{filename}' with OCR text for images.")
                 break
 
     def get_registry(self):
@@ -86,7 +102,6 @@ class DocumentRegistry:
 
     @staticmethod
     def process_image_file(image_path, base_output_dir, max_size=(1000, 1000)):
-        print("Processing image file:", image_path)
         try:
             # Create a dedicated folder for the image
             image_name = os.path.splitext(os.path.basename(image_path))[0]
@@ -118,7 +133,6 @@ class DocumentRegistry:
             return []
 
     def process_file(self, file_path, base_output_dir, max_size=(1000, 1000)):
-        print(f"Processing file: {file_path}")
         file_extension = os.path.splitext(file_path)[1].lower()
         if file_extension == ".pdf":
             images = self.convert_pdf_to_images(file_path, base_output_dir, max_size)
@@ -131,3 +145,19 @@ class DocumentRegistry:
         # Ensure the images list updates the registry
         self.update_document_with_images(os.path.basename(file_path), images)
         print(f"Processing completed for file: {file_path}")
+
+    def process_ocr_for_registry(self):
+        """
+        Processes OCR for all the documents in the registry that have images in the 'Images' tag.
+        Updates the 'OCR' field with the corresponding extracted text for each image.
+        """
+        for doc in self.registry:
+            if doc["Images"]:
+                image_ocr_data = {}
+                for image_path in doc["Images"]:
+                    ocr_text = self.ocr_processor.extract_text_from_image(image_path)
+                    image_filename = os.path.basename(image_path)
+                    image_ocr_data[image_filename] = ocr_text
+
+                # Update OCR data for each image in the document registry
+                self.update_document_with_ocr(doc["Original Filename"], image_ocr_data)
