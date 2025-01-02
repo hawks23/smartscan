@@ -161,3 +161,17 @@ class DocumentRegistry:
 
                 # Update OCR data for each image in the document registry
                 self.update_document_with_ocr(doc["Original Filename"], image_ocr_data)
+
+    def get_combined_ocr_for_all_documents(self) -> str:
+        """
+        Combines OCR text from all documents in the registry into a single string.
+
+        Returns:
+        - str: The combined OCR text from all images in the registry.
+        """
+        combined_ocr_text = ""
+        for doc in self.registry:
+            for image_file, ocr_text in doc.get("OCR", {}).items():
+                combined_ocr_text += f"Image: {image_file}\n{ocr_text}\n\n"
+        # print(combined_ocr_text)
+        return combined_ocr_text

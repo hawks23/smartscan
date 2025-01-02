@@ -1,0 +1,125 @@
+{
+    "Patient Information": {
+        "Patient Name": "PRATHAPA CHANDRA VARMA",
+        "Patient ID": "MBLC3843",
+        "Age/Gender": "70 Years / Male",
+        "Primary Care Physician": "Dr. P N VARMA",
+        "Last Visit": "04-May-2023"
+    },
+    "Documents": [
+        {
+            "Original Filename": "PRATHAPA CHANDRA VARMA-2.pdf",
+            "File Type": "pdf",
+            "MIME Type": "application/pdf",
+            "File Size": 651067,
+            "Upload Timestamp": "2025-01-02T10:58:33.648331",
+            "Images": [
+                "images\\PRATHAPA CHANDRA VARMA-2\\page_1.jpg",
+                "images\\PRATHAPA CHANDRA VARMA-2\\page_2.jpg",
+                "images\\PRATHAPA CHANDRA VARMA-2\\page_3.jpg",
+                "images\\PRATHAPA CHANDRA VARMA-2\\page_4.jpg",
+                "images\\PRATHAPA CHANDRA VARMA-2\\page_5.jpg"
+            ],
+            "OCR": {
+                "page_1.jpg": "Extracted OCR text for page 1...",
+                "page_2.jpg": "Extracted OCR text for page 2...",
+                "page_3.jpg": "Extracted OCR text for page 3...",
+                "page_4.jpg": "Extracted OCR text for page 4...",
+                "page_5.jpg": "Extracted OCR text for page 5..."
+            }
+        },
+        {
+            "Original Filename": "PRATHAPA CHANDRA VARMA-2_page_1.jpg",
+            "File Type": "jpg",
+            "MIME Type": "image/jpeg",
+            "File Size": 75649,
+            "Upload Timestamp": "2025-01-02T10:58:33.831955",
+            "Images": [
+                "images\\PRATHAPA CHANDRA VARMA-2_page_1\\PRATHAPA CHANDRA VARMA-2_page_1.jpg"
+            ],
+            "OCR": {
+                "PRATHAPA CHANDRA VARMA-2_page_1.jpg": "Extracted OCR text for this image..."
+            }
+        },
+        {
+            "Original Filename": "PRATHAPA CHANDRA VARMA-2_page_2.jpg",
+            "File Type": "jpg",
+            "MIME Type": "image/jpeg",
+            "File Size": 63133,
+            "Upload Timestamp": "2025-01-02T10:58:33.856733",
+            "Images": [
+                "images\\PRATHAPA CHANDRA VARMA-2_page_2\\PRATHAPA CHANDRA VARMA-2_page_2.jpg"
+            ],
+            "OCR": {
+                "PRATHAPA CHANDRA VARMA-2_page_2.jpg": "Extracted OCR text for this image..."
+            }
+        }
+    ],
+    "Active Conditions": [
+        {
+            "Condition Name": "Hypertension",
+            "Diagnosed": "2020",
+            "Management Status": "Controlled",
+            "Next Steps": "Adjust antihypertensive medication"
+        }
+    ],
+    "Current Medications": [
+        {
+            "Medication Name": "Metformin",
+            "Dosage": "500 mg",
+            "Frequency": "Twice daily",
+            "Start Date": "Jan 2020"
+        },
+        {
+            "Medication Name": "Amlodipine",
+            "Dosage": "5 mg",
+            "Frequency": "Once daily",
+            "Start Date": "May 2018"
+        }
+    ],
+    "Recent Lab Results": [
+        {
+            "Test Name": "HbA1c",
+            "Date": "04-May-2023",
+            "Result": "7.2%",
+            "Normal Range": "< 6.5%",
+            "Status": "High",
+            "Severity": "Moderate",
+            "Management Status": "Needs Review",
+            "Next Steps": "Increase medication dosage and conduct follow-up test."
+        },
+        {
+            "Test Name": "LDL Cholesterol",
+            "Date": "04-May-2023",
+            "Result": "160 mg/dL",
+            "Normal Range": "< 100 mg/dL",
+            "Status": "High",
+            "Severity": "Severe",
+            "Management Status": "Uncontrolled",
+            "Next Steps": "Prescribe statins and recommend dietary changes."
+        },
+        {
+            "Test Name": "C-Reactive Protein (CRP)",
+            "Date": "04-May-2023",
+            "Result": "5.0 mg/L",
+            "Normal Range": "< 10 mg/L",
+            "Status": "Normal",
+            "Severity": "Low",
+            "Management Status": "Controlled",
+            "Next Steps": "Continue monitoring."
+        }
+    ],
+    "Guidelines": [
+        {
+            "Type": "Cardiology",
+            "Reference": "AHA/ACC Hypertension Guidelines",
+            "Link": "https://www.heart.org/"
+        },
+        {
+            "Type": "Endocrinology",
+            "Reference": "ADA Diabetes Standards",
+            "Link": "https://www.diabetes.org/"
+        }
+    ],
+    "Notes": "All extracted information has been consolidated. Recommendations and insights should be reviewed by a healthcare professional."
+}
