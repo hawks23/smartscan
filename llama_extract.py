@@ -346,28 +346,28 @@ def summary_extract(summary: str) -> str:
 
         # Extract and return response text
         response_text = response["output"]["message"]["content"][0]["text"]
+        return response_text
+        # prompt = textwrap.dedent(f"""Verify and validate the formatting of the following JSON text and return only the corrected json, which will be saved as a json file directly.
+        # json text : {response_text}
+        # """)
+        # try:
+        #     # Send the request to Bedrock model
+        #     print("Extracting the data from the text")
+        #     response = bedrock_runtime.converse(
+        #         modelId=MODEL_ID,
+        #         messages=[{
+        #             "role": "user",
+        #             "content": [{"text": prompt}]
+        #         }],
+        #     )
 
-        prompt = textwrap.dedent(f"""Verify and validate the formatting of the following JSON text and return only the corrected json, which will be saved as a json file directly.
-        json text : {response_text}
-        """)
-        try:
-            # Send the request to Bedrock model
-            print("Extracting the data from the text")
-            response = bedrock_runtime.converse(
-                modelId=MODEL_ID,
-                messages=[{
-                    "role": "user",
-                    "content": [{"text": prompt}]
-                }],
-            )
-
-            # Extract and return response text
-            response_text = response["output"]["message"]["content"][0]["text"]
-            # print("Generated Extract:\n", response_text)
-            return response_text
-        except ClientError as e:
-            print(f"ERROR: Failed to invoke model '{MODEL_ID}': {e}")
-        return "Error: Unable to generate validate json."
+        #     # Extract and return response text
+        #     response_text = response["output"]["message"]["content"][0]["text"]
+        #     # print("Generated Extract:\n", response_text)
+        #     return response_text
+        # except ClientError as e:
+        #     print(f"ERROR: Failed to invoke model '{MODEL_ID}': {e}")
+        # return "Error: Unable to generate validate json."
 
     except ClientError as e:
         print(f"ERROR: Failed to invoke model '{MODEL_ID}': {e}")
