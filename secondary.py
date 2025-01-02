@@ -1,14 +1,14 @@
-# secondary.py
 import os
 from datetime import datetime
 import fitz  # PyMuPDF
 from PIL import Image
 import shutil
 from ocr import OCRProcessor
+import json
 
 class DocumentRegistry:
     def __init__(self):
-        self.registry = []
+        self.registry = {"Documents": []}
         self.ocr_processor = OCRProcessor()  # Initialize the OCR processor
 
     def add_document(self, filename, file_type, mime_type, file_size):
@@ -21,11 +21,11 @@ class DocumentRegistry:
             "Images": [],
             "OCR": {}  # Use a dictionary to store OCR results by image filename
         }
-        self.registry.append(metadata)
+        self.registry["Documents"].append(metadata)
         return metadata
 
     def update_document_with_images(self, filename, images):
-        for doc in self.registry:
+        for doc in self.registry["Documents"]:
             if doc["Original Filename"] == filename:
                 doc["Images"] = images
                 break
@@ -38,7 +38,7 @@ class DocumentRegistry:
         - filename: str, the document's original filename.
         - image_ocr_data: dict, a dictionary where keys are image filenames and values are OCR texts.
         """
-        for doc in self.registry:
+        for doc in self.registry["Documents"]:
             if doc["Original Filename"] == filename:
                 doc["OCR"].update(image_ocr_data)  # Update OCR data for each image
                 print(f"\nUpdated document '{filename}' with OCR text for images.")
@@ -48,12 +48,10 @@ class DocumentRegistry:
         return self.registry
 
     def save_registry(self, file_path):
-        import json
         with open(file_path, 'w') as f:
             json.dump(self.registry, f, indent=4)
 
     def load_registry(self, file_path):
-        import json
         if os.path.exists(file_path):
             with open(file_path, 'r') as f:
                 self.registry = json.load(f)
@@ -151,7 +149,7 @@ class DocumentRegistry:
         Processes OCR for all the documents in the registry that have images in the 'Images' tag.
         Updates the 'OCR' field with the corresponding extracted text for each image.
         """
-        for doc in self.registry:
+        for doc in self.registry["Documents"]:
             if doc["Images"]:
                 image_ocr_data = {}
                 for image_path in doc["Images"]:
@@ -170,8 +168,7 @@ class DocumentRegistry:
         - str: The combined OCR text from all images in the registry.
         """
         combined_ocr_text = ""
-        for doc in self.registry:
+        for doc in self.registry["Documents"]:
             for image_file, ocr_text in doc.get("OCR", {}).items():
                 combined_ocr_text += f"Image: {image_file}\n{ocr_text}\n\n"
-        # print(combined_ocr_text)
         return combined_ocr_text
