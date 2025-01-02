@@ -2,8 +2,10 @@
 import streamlit as st
 from secondary import DocumentRegistry
 from llama_summary import generate_summary
+from llama_extract import summary_extract
 import os
 from mimetypes import guess_type
+import json
 
 # Initialize the document registry
 registry = DocumentRegistry()
@@ -38,6 +40,10 @@ if uploaded_files:
         output_dir = "images"
         registry.process_file(save_path, output_dir)
 
+    # Save the updated registry
+    registry.save_registry("document_registry.json")
+    st.success("Files uploaded and processed successfully!")
+
     # Perform OCR on all documents with images
     print("Performing OCR on uploaded documents...")
     registry.process_ocr_for_registry()
@@ -59,6 +65,27 @@ if uploaded_files:
         # Display the summary in the app
         st.subheader("Patient Summary")
         st.text(summary)
+        updated_json = summary_extract(summary)
+        print("Extracted JSON output:", updated_json)
+        # Save the updated JSON as a formatted file
+        # try:
+        #     # Debug: Print the string to see its content
+        #     print("Updated JSON String:", updated_json)
+
+        #     # Attempt to parse the JSON string
+        #     json_data = json.loads(updated_json)
+            
+        #     # Write the JSON object to a file with formatting
+        #     with open("registry_metadata.json", "w", encoding="utf-8") as json_file:
+        #         json.dump(json_data, json_file, indent=4, ensure_ascii=False)
+            
+        #     st.success("Updated metadata saved to registry_metadata.json!")
+        # except json.JSONDecodeError as e:
+        #     st.error(f"Failed to parse the updated JSON data: {e}")
+        #     print("JSONDecodeError details:", e)
+        # except Exception as e:
+        #     st.error(f"An error occurred while saving the JSON file: {e}")
+
     else:
         print("No OCR data available for summarization.")
         st.warning("No OCR data available for summarization. Please upload valid documents.")
